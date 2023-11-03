@@ -113,15 +113,48 @@ python manage.py migrate
 
 Es importante poner blog, de manera que sólo actualicemos la bbdd de nuestra aplicación, no de todo.
 
-## 11. Modificar site admin en admin.py importando los modelos creados, además:
+## 11. Modificar nastu_site admin en admin.py importando los modelos creados, además:
 
-    - Incluimos también los modelos que serán visibles desde el administrador.
-    - Creamos un superusuario con python manage.py createsuperuser
+Incluimos también los modelos que serán visibles desde el administrador en admin.py:
+
+```python
+from django.contrib import admin
+from .models import Task
+
+# Register your models here.
+admin.site.register(Task)
+```
+
+Creamos un superusuario (User: nastupiste / password: root1234):
+
+```SYS
+python manage.py createsuperuser
+```
 
 ## 12. Añadir a urls.py lo siguiente
 
-    - urls.py (global) hacemos un include de la aplicación "blog"
-    - urls.py (de blog) En urlpatterns agregamos los patrones que definamos para cada una de las direcciones y las vistas a las que corresponderían, además podemos asignarles un nombre.
+En urls.py (global) hacemos un include de la aplicación "task":
+
+```python
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('task.urls')),
+]
+```
+
+En urls.py (de task) En urlpatterns agregamos los patrones que definamos para cada una de las direcciones y las vistas a las que corresponderían, además podemos asignarles un nombre.
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('tareas/', views.task_list, name='task_list'),
+]
+```
 
 ## 13. A través de views.py podemos acceder a los datos del modelo, ¿Cómo?
 
