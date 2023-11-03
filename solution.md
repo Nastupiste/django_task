@@ -67,7 +67,9 @@ Crea la estructura de directorios y ficheros necesarios para gestionar nuestra a
 python manage.py startapp task
 ```
 
-Añade la aplicación a la lista de APPs en setting.py:
+## 8. Añadir nuestra nueva aplicación, en nuestro caso task, a la lista de app instaladas:
+
+En settings.py:
 
 ```settings.py
 INSTALLED_APPS = [
@@ -81,19 +83,35 @@ INSTALLED_APPS = [
 ]
 ```
 
-## 8. Añadir nuestra nueva aplicación, en nuestro caso blog, a la lista de app instaladas:
-
-    - En settings.py
-
 ## 9. Crear un modelo en models.py para nuestra base de datos:
 
-    - En lugar de tablas, utilizaremos clases con "atributos" que serán nuestros campos y métodos que definirán su comportamiento.
+En lugar de tablas, utilizaremos clases con "atributos" que serán nuestros campos y métodos que definirán su comportamiento.
+
+En models.py:
+
+```python
+class Task(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+```
 
 ## 10. Ahora actualizamos la base de datos:
 
-    - python manage.py makemigration blog (prepara la actualización)
-    - python manage.py migrate blog (la ejecuta)
-    - Es importante poner blog, de manera que sólo actualicemos la bbdd de nuestra aplicación, no de todo.
+```SYS
+python manage.py makemigrations
+```
+
+Realiza los cambios:
+
+```SYS
+python manage.py migrate
+```
+
+Es importante poner blog, de manera que sólo actualicemos la bbdd de nuestra aplicación, no de todo.
 
 ## 11. Modificar site admin en admin.py importando los modelos creados, además:
 
