@@ -152,34 +152,60 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('tareas/', views.task_list, name='task_list'),
+    path('', views.task_list, name='task_list'),
 ]
 ```
 
 ## 13. A través de views.py podemos acceder a los datos del modelo, ¿Cómo?
 
-    - Definiendo los los distintos métodos que usará nuestra aplicación blog.
-    - Los métodos llamarán a un template u a otro dependiendo de la funcionalidad que utilicemos.
-    - Por ejemplo; el método post_list filtrará las publicaciones y las ordenará por fecha de publicación.
-    Además, renderizará el template en la ruta 'blog/post_list.html'.
+13.1 Importamos de models.py la clase Task
+Definiendo los los distintos métodos que usará nuestra aplicación task.
 
-## 14. En el directorio templates\blog\ tendremos los diferentes ficheros html que enviaremos a la vista
+```python
+from django.shortcuts import render
+from .models import Task
+# Create your views here.
 
-    - Cada fichero es un html propio de una página o funcionalidad pero todos comparten elementos comunes.
-    - Los elementos comunes se extienden desde el fichero base.html a los demás con {% extends 'blog/base.html' %}
-    - Los contenidos propios de cada template se encierran entre {% block content %} y {% endblock %}
-    - Para utilizar código python dentro de los html utilizamos la siguiente acotación:
-        - {% for post in posts %}
-        - Etiquetas html (aquí también puede existir más código)
-        - {% endfor %}
+def task_list(request):
+    tasks= object.all()
+    return render(request, 'task_list.html', {'tasks':tasks})
+```
 
-## 15. El estilo CSS se añadirá en la dirección static\css\blog.css:
+Los métodos llamarán a un template u a otro dependiendo de la funcionalidad que utilicemos.
+Por ejemplo; el método task_list mostrará las tareas que existan en el modelo
+Además, renderizará el template en la ruta 'tareas/task_list.html'.
 
-    - Definimos los estilos, en el caso de la práctica utilizando boostrap y CSS
-    - Aplicamos los estilos a los diferentes templates a través del base con {% load static %}
-    - Cómo al template base se le aplican los estilos, los demás también los tendrán por la extensión {% extends 'blog/base.html' %}
+## 14. En el directorio templates\ tendremos los diferentes ficheros html que enviaremos a la vista
 
-## 16. Para añadir la funcionalidad formularios seguimos los siguientes pasos:
+Creamos el fichero task_list.html y añadimos el siguiente contendio:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tareas App</title>
+  </head>
+  <body>
+    <h1>Lista de tareas</h1>
+    <ul>
+      {% for task in tasks %}
+      <li>
+        <pre><b>Nombre:</b>  {{ task.title }}     <b>Descripción:</b> {{ task.description }}      <b>Completada:</b>({{ task.completed|yesno:"Sí,No"}})</pre>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
+```
+
+Cada fichero es un html propio de una página o funcionalidad pero todos comparten elementos comunes.
+Los elementos comunes se extienden desde el fichero base.html a los demás con {% extends 'task/base.html' %}
+Los contenidos propios de cada template se encierran entre {% block content %} y {% endblock %}
+Para utilizar código python dentro de los html utilizamos la siguiente acotación: - {% for post in posts %} - Etiquetas html (aquí también puede existir más código) - {% endfor %}
+
+## 15. Para añadir la funcionalidad formularios seguimos los siguientes pasos:
 
     - Añadimos el path de la url a urls.py (del blog)
     - En views.py definimos la nueva funcionalidad (puede que necesitemos varios métodos) y hacemos la llamada al template correspondiente
