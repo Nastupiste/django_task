@@ -2,8 +2,8 @@
 
 ## 1. Disponer de Python y entorno virtual
 
-'''SYS
-mkvirtualenv django_task'''
+```SYS
+mkvirtualenv django_task```
 
 ## 2. Usar el fichero requirements.txt con el comando pip install -r requirements.txt
 
