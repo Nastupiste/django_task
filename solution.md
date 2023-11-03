@@ -55,12 +55,31 @@ python manage.py migrate
 
 ## 6. Arrancar el servidor para acceder a la web a nivel local con el comando:
 
-    - python manage.py runserver
+```SYS
+python manage.py runserver
+```
 
 ## 7. Crear la aplicación "nombre de la aplicación" usamos el comando:
 
-    - python manage.py startapp "nombre de la aplicación"
-    - Agrega la estructura de directorios y ficheros necesarios para gestionar nuestra aplicación
+Crea la estructura de directorios y ficheros necesarios para gestionar nuestra aplicación
+
+```SYS
+python manage.py startapp task
+```
+
+Añade la aplicación a la lista de APPs en setting.py:
+
+```settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'task.apps.TaskConfig',
+]
+```
 
 ## 8. Añadir nuestra nueva aplicación, en nuestro caso blog, a la lista de app instaladas:
 
