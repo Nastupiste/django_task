@@ -12,6 +12,8 @@
       <li>
         <pre><b>Nombre:</b>  {{ task.title }}     <b>Descripción:</b> {{ task.description }}      <b>Completada:</b>({{ task.completed|yesno:"Sí,No"}})</pre>
       </li>
+      {% empty %}
+      <li>No existen tareas por hacer</li>
       {% endfor %}
     </ul>
   </body>
