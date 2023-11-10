@@ -6,6 +6,11 @@
     <title>Tareas App</title>
   </head>
   <body>
+    <h1>Nueva tarea</h1>
+    <form action="{% url 'task_list' %}" method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Enviar</button>
+    </form>
     <h1>Lista de tareas</h1>
     <ul>
       {% for task in tasks %}

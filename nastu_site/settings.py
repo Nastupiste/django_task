@@ -29,6 +29,11 @@ ALLOWED_HOSTS = ['127.0.0.1',]
 
 
 # Application definition
+PYLINT_IGNORE = [
+    'C0114',  # Desactiva la advertencia "Missing module docstring"
+    'C0116',  # Desactiva la advertencia "Missing function or method docstring"
+    # Agrega más reglas de Pylint aquí si es necesario
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
