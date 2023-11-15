@@ -44,6 +44,24 @@ class TaskDescription(View):
         task = get_object_or_404(Task, pk=pk)
         return render(request, self.template_description, {'task': task})
 
+
+class EditTask(View):
+
+    def get(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        form = TaskForm(instance=task)
+        return render(request, 'task_edit.html', {'task': task, 'form': form})
+
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            task = form.save(commit=False)
+            form.save()
+            return redirect('task_description', pk=pk)
+        return render(request, 'task_edit.html', {'task': task, 'form': form})
+
+
 # Organizado en funciones (form.Form)
 
 

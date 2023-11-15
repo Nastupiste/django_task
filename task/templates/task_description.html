@@ -15,5 +15,9 @@
     <form action="{% url 'home' %}" method="get">
       <button type="submit">Volver</button>
     </form>
+    <br />
+    <form action="{% url 'task_edit' pk=task.pk %}" method="get">
+      <button type="submit">Editar</button>
+    </form>
   </body>
 </html>
