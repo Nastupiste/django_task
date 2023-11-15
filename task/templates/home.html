@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Entorno Servidor: django task</h1>
+    <h2>Listado de Tareas pendientes</h2>
+    <ul>
+      {% for task in tasks %}
+      <li><b>{{ task.pk }}</b><b>. Nombre:</b> <a href="{% url 'task_description' pk=task.pk %}"> {{ task.title }} </a></li>
+      {% empty %}
+      <li>No existen tareas por hacer</li>
+      {% endfor %}
+    </ul>
+    <form action="{% url 'formulario' %}" method="get">
+      <button type="submit">Nueva Tarea</button>
+    </form>
+  </body>
+</html>
+
+<!--   <ul>
+        {% for task in tasks %}
+        <li>
+          <pre><b>Nombre:</b>  {{ task.title }}     <b>Descripción:</b> {{ task.description }}      <b>Completada:</b>({{ task.completed|yesno:"Sí,No" }})</pre>
+        </li>
+        {% empty %}
+        <li>No existen tareas por hacer</li>
+        {% endfor %}
+      </ul>
+-->
